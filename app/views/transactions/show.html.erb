@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Street:</strong>
+  <%= @transaction.street %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @transaction.city %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @transaction.zip %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @transaction.state %>
+</p>
+
+<p>
+  <strong>Beds:</strong>
+  <%= @transaction.beds %>
+</p>
+
+<p>
+  <strong>Baths:</strong>
+  <%= @transaction.baths %>
+</p>
+
+<p>
+  <strong>Sq  ft:</strong>
+  <%= @transaction.sq__ft %>
+</p>
+
+<p>
+  <strong>Sale date:</strong>
+  <%= @transaction.sale_date %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @transaction.price %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @transaction.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @transaction.longitude %>
+</p>
+
+<%= link_to 'Edit', edit_transaction_path(@transaction) %> |
+<%= link_to 'Back', transactions_path %>

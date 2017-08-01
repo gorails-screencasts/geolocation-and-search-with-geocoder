@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'csv'
+
+Transaction.destroy_all
+
+CSV.foreach("db/Sacramentorealestatetransactions.csv", headers: true) do |line|
+  Transaction.create! line.to_hash.except(*%w{type latitude longitude})
+end

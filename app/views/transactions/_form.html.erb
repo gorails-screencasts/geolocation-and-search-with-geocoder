@@ -1,0 +1,72 @@
+<%= form_with(model: transaction, local: true) do |form| %>
+  <% if transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% transaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :street %>
+    <%= form.text_field :street, id: :transaction_street %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, id: :transaction_city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :zip %>
+    <%= form.text_field :zip, id: :transaction_zip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state, id: :transaction_state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :beds %>
+    <%= form.text_field :beds, id: :transaction_beds %>
+  </div>
+
+  <div class="field">
+    <%= form.label :baths %>
+    <%= form.text_field :baths, id: :transaction_baths %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sq__ft %>
+    <%= form.text_field :sq__ft, id: :transaction_sq__ft %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sale_date %>
+    <%= form.datetime_select :sale_date, id: :transaction_sale_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price, id: :transaction_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude, id: :transaction_latitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude, id: :transaction_longitude %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
