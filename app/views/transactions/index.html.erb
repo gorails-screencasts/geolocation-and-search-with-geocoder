@@ -1,47 +1,20 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col">
+    <h1>Transactions</h1>
 
-<h1>Transactions</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Street</th>
-      <th>City</th>
-      <th>Zip</th>
-      <th>State</th>
-      <th>Beds</th>
-      <th>Baths</th>
-      <th>Sq  ft</th>
-      <th>Sale date</th>
-      <th>Price</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
     <% @transactions.each do |transaction| %>
-      <tr>
-        <td><%= transaction.street %></td>
-        <td><%= transaction.city %></td>
-        <td><%= transaction.zip %></td>
-        <td><%= transaction.state %></td>
-        <td><%= transaction.beds %></td>
-        <td><%= transaction.baths %></td>
-        <td><%= transaction.sq__ft %></td>
-        <td><%= transaction.sale_date %></td>
-        <td><%= transaction.price %></td>
-        <td><%= transaction.latitude %></td>
-        <td><%= transaction.longitude %></td>
-        <td><%= link_to 'Show', transaction %></td>
-        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div>
+        <h5><%= link_to transaction.address, transaction %></h5>
+        <div><%= pluralize transaction.beds, "bed" %> <%= pluralize transaction.baths, "bath" %> <%= transaction.sq__ft %> sqft</div>
+        <div>Sold: <%= l transaction.sale_date.to_date %> for <%= number_to_currency transaction.price %></div>
+      </div>
+      <hr />
     <% end %>
-  </tbody>
-</table>
 
-<br>
+    <%= paginate @transactions %>
+  </div>
 
-<%= link_to 'New Transaction', new_transaction_path %>
+  <div class="col">
+    <%= tag.div nil, id: 'map', data: { transactions: @transactions.to_json(methods: [:address]) } %>
+  </div>
+</div>

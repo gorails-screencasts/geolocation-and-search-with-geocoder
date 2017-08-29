@@ -1,7 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :transactions
   get '/privacy', to: 'home#privacy'
   get '/terms', to: 'home#terms'
   namespace :admin do
@@ -17,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  root to: 'home#index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  resources :transactions
+  root to: 'transactions#index'
 end
