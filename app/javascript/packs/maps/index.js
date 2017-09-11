@@ -10,8 +10,6 @@ document.addEventListener("turbolinks:load", function() {
   var transactions = JSON.parse(document.querySelector("#map").dataset.transactions);
   window.transactions = transactions;
 
-  var bounds = new google.maps.LatLngBounds();
-
   transactions.forEach(function(transaction) {
     if (transaction.latitude && transaction.longitude) {
       var marker = map.addMarker({
@@ -22,10 +20,8 @@ document.addEventListener("turbolinks:load", function() {
           content: `<p><a href='/transactions/${transaction.id}'>${transaction.address}</a></p>`
         }
       });
-
-      bounds.extend(marker.position);
     }
   });
 
-  map.fitBounds(bounds);
+  map.fitZoom();
 });
