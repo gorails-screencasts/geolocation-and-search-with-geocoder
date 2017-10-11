@@ -1,20 +1,9 @@
 <div class="row">
   <div class="col-6">
-
-    <% @transactions.each do |transaction| %>
-      <div>
-        <h6><%= link_to transaction.address, transaction %></h6>
-        <div><%= pluralize transaction.beds, "bed" %> <%= pluralize transaction.baths, "bath" %> <%= transaction.sq__ft %> sqft</div>
-        <div>Sold: <%= l transaction.sale_date.to_date %> for <%= number_to_currency transaction.price %></div>
-      </div>
-      <hr />
-    <% end %>
-
-    <%= paginate @transactions, theme: 'twitter-bootstrap-4' %>
+    <%= render partial: "list" %>
   </div>
 
   <div class="col-6">
-    <%= tag.div nil, id: 'map', data: { transactions: @transactions.to_json(methods: [:address]), l: params[:l] } %>
-    <%= link_to "Redo search in this area", "#", id: "redo-search" %>
+    <%= tag.div nil, id: 'map' %>
   </div>
 </div>

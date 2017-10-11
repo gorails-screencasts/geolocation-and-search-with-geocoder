@@ -1,0 +1,12 @@
+<%= tag.div id: "transactions-list", data: { transactions: @transactions.to_json(methods: [:address]), l: params[:l] } do %>
+  <% @transactions.each do |transaction| %>
+    <div>
+      <h6><%= link_to transaction.address, transaction %></h6>
+      <div><%= pluralize transaction.beds, "bed" %> <%= pluralize transaction.baths, "bath" %> <%= transaction.sq__ft %> sqft</div>
+      <div>Sold: <%= l transaction.sale_date.to_date %> for <%= number_to_currency transaction.price %></div>
+    </div>
+    <hr />
+  <% end %>
+
+  <%= paginate @transactions, theme: 'twitter-bootstrap-4', remote: true %>
+<% end %>

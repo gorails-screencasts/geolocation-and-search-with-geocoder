@@ -1,13 +1,10 @@
-document.addEventListener("turbolinks:load", function() {
-  var map = new GMaps({
-    div: '#map',
-    lat: 38.5816,
-    lng: -121.4944
-  });
-  window.map = map;
+var map;
 
-  var transactions = JSON.parse(document.querySelector("#map").dataset.transactions);
-  window.transactions = transactions;
+window.addMarkers = function addMarkers() {
+  var element = document.querySelector("#transactions-list");
+  var transactions = window.transactions = JSON.parse(element.dataset.transactions);
+
+  map.removeMarkers();
 
   transactions.forEach(function(transaction) {
     if (transaction.latitude && transaction.longitude) {
@@ -22,20 +19,33 @@ document.addEventListener("turbolinks:load", function() {
     }
   });
 
-  var l = document.querySelector("#map").dataset.l;
+  setSafeBounds(element);
+}
+
+function setSafeBounds(element) {
+  var l = element.dataset.l;
   if (l) {
     var latlngs   = l.split(',');
     var southWest = new google.maps.LatLng(latlngs[0], latlngs[1]);
     var northEast = new google.maps.LatLng(latlngs[2], latlngs[3]);
     var bounds    = new google.maps.LatLngBounds(southWest, northEast);
     map.fitBounds(bounds, 0);
+
   } else {
     map.fitZoom();
   }
+}
 
-  document.querySelector("#redo-search").addEventListener("click", function(e) {
-    e.preventDefault();
+document.addEventListener("turbolinks:load", function() {
+  map = window.map = new GMaps({
+    div: '#map',
+    lat: 38.5816,
+    lng: -121.4944
+  });
 
+  addMarkers();
+
+  map.addListener("dragend", function() {
     var bounds = map.getBounds();
     var location = bounds.getSouthWest().toUrlValue() + "," + bounds.getNorthEast().toUrlValue();
 
