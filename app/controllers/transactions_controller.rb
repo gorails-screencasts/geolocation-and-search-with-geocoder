@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
   def index
     @transactions = if params[:l]
                       sw_lat, sw_lng, ne_lat, ne_lng = params[:l].split(",")
-                      Transaction.search("*", page: params[:page], per_page: 5, where: {
+                      Transaction.search("*", fields: [:_all], page: params[:page], per_page: 5, where: {
                         location: {
                           top_left: {
                             lat: ne_lat,
@@ -22,7 +22,7 @@ class TransactionsController < ApplicationController
                       #Transaction.near(params[:near]).page(params[:page]).per(5)
 
                       location = Geocoder.search(params[:near]).first
-                      Transaction.search "*", page: params[:page], per_page: 5,
+                      Transaction.search "*", fields: [:_all], page: params[:page], per_page: 5,
                         boost_by_distance: {location: {origin: {lat: location.latitude, lon: location.longitude}}},
                         where: {
                           location: {
